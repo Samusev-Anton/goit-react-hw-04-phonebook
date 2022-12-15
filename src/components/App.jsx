@@ -5,35 +5,16 @@ import { Filter } from './Filter/Filter';
 import { useState, useEffect } from 'react';
 
 const parceContacts = JSON.parse(localStorage.getItem('contacts'));
-console.log(parceContacts);
 
 export const App = () => {
   const [contacts, setContacts] = useState(parceContacts ?? []);
   const [filter, setFilter] = useState('');
 
-  // useEffect(() => {
-  //   const parceContacts = JSON.parse(localStorage.getItem('contacts'));
-  //   if (parceContacts) {
-  //     setContacts(parceContacts);
-  //   }
-  // }, []);
-
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    contacts !== []
+      ? localStorage.setItem('contacts', JSON.stringify(contacts))
+      : localStorage.setItem('contacts', JSON.stringify([]));
   }, [contacts]);
-
-  // componentDidMount() {
-  //   const parceContacts = JSON.parse(localStorage.getItem('contacts'));
-  //   if (parceContacts) {
-  //     this.setState({ contacts: parceContacts });
-  //   }
-  // }
-
-  // componentDidUpdate(_, prevState) {
-  //   if (prevState.contacts !== this.state.contacts) {
-  //     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  //   }
-  // }
 
   const formSubmitHandler = data => {
     const checkContact = contacts.some(
