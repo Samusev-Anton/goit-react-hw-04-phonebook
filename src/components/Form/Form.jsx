@@ -9,7 +9,7 @@ class Form extends React.Component {
   };
 
   handleInputChange = event => {
-    // console.log(event);
+    console.log(event.currentTarget.name);
     this.setState({ [event.currentTarget.name]: event.currentTarget.value });
   };
 
