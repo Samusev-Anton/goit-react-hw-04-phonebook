@@ -4,16 +4,19 @@ import User from './User/User';
 import { Filter } from './Filter/Filter';
 import { useState, useEffect } from 'react';
 
-const parceContacts = JSON.parse(localStorage.getItem('contacts'));
-
 export const App = () => {
-  const [contacts, setContacts] = useState(parceContacts ?? []);
+  const [contacts, setContacts] = useState(() => {
+    const savedContacts = localStorage.getItem('contacts');
+    if (savedContacts !== null) {
+      const parcedContacts = JSON.parse(savedContacts);
+      return parcedContacts;
+    }
+    return [];
+  });
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    contacts !== []
-      ? localStorage.setItem('contacts', JSON.stringify(contacts))
-      : localStorage.setItem('contacts', JSON.stringify([]));
+    localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
   const formSubmitHandler = data => {
